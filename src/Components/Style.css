@@ -1,0 +1,38 @@
+body{
+    background-color: white;
+}
+
+.gifs{
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gif{
+    padding: 0 2px;
+}
+
+.loader{
+    color: blue;
+}
+
+.search{
+    justify-content: center;
+    margin: 2px;
+}
+
+.input{
+    margin-left: 40%;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    height: 15px;
+    border: 2px solid black;
+    border-radius: 4%;
+}
+.btn{
+    background-color:blue;
+    color: white;
+    margin-left: 2px;
+}
