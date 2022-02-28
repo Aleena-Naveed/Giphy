@@ -85,7 +85,7 @@ const Gif = (props) => {
       });
       console.log(results);
       setData(results.data.data);
-      setSearch("");
+      setText("");
     } catch (error) {
       console.log("error", error);
     }
@@ -96,6 +96,7 @@ const Gif = (props) => {
   };
 
   return (
+
     <Grid container sx={{ bgcolor: "#000" }}>
       <Grid container sx={{ marginTop: "1%" }}>
         <Grid item xs={2}></Grid>
@@ -201,7 +202,7 @@ const Gif = (props) => {
                         // });
                         // console.log(localStorage);
                         if (liked?.includes(el.id)) {
-                          setLiked(liked.filter((id) => id != el.id));
+                          setLiked(liked => liked.filter((id) => id != el.id));
                           //setLiked(liked.filter((item) => (item = !el.id)));
                         } else {
                           if (liked) {
@@ -275,6 +276,7 @@ const Gif = (props) => {
         ;
       </Grid>
     </Grid>
+
   );
 };
 

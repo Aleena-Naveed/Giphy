@@ -1,6 +1,5 @@
 import logo from './logo.svg';
-import './Components/Style.css';
-import Gif from './Components/fetchData'
+import Main from './Components/main'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -25,11 +24,11 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div>    
-        <Gif />
+      <div>
+        <Main />
       </div>
-   </ThemeProvider>
-    
+    </ThemeProvider>
+
   );
 }
 
