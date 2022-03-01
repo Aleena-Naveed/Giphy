@@ -17,8 +17,25 @@ import Typography from "@mui/material/Typography";
 import { red, grey } from "@mui/material/colors";
 import Skeleton from "@mui/material/Skeleton";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+// import { AsyncStorage } from 'reactjs-async-localstorage';
+
+
+// import { Gifcard } from './gifCard';
 
 export const Displaygif = ({ data, setData, liked, setLiked }) => {
+
+    // const asyncLocalStorage = {
+    //     setItem: async function (key, value) {
+    //         return localStorage.setItem(key, value);
+    //     }
+    // };
+
+    // const saveArray = () => {
+    //     console.log("saveArray");
+    //     const list = JSON.stringify(liked);
+    //     return (localStorage.setItem("likedArray", list));
+    // };
+
     return (
         <Grid container sx={{ bgcolor: "#000" }}>
             <Grid
@@ -41,18 +58,18 @@ export const Displaygif = ({ data, setData, liked, setLiked }) => {
                                     //         height={40}
                                     //     />
                                     // ) : (
-                                        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                            R
-                                        </Avatar>
+                                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                        R
+                                    </Avatar>
                                     // )
                                 }
                                 action={
                                     // loading ? null : (
-                                        // <Checkbox checked = {fav}  icon={<FavoriteBorder />} checkedIcon={<FavoriteIcon sx={{ color: red[500] }} /> } onClick={() => { handleIconClick(el.images.fixed_height.url);}}/>
-                                        <IconButton
-                                            sx={{ color: red[500] }}
-                                            aria-label="add to favorites"
-                                            // onClick={() => {
+                                    // <Checkbox checked = {fav}  icon={<FavoriteBorder />} checkedIcon={<FavoriteIcon sx={{ color: red[500] }} /> } onClick={() => { handleIconClick(el.images.fixed_height.url);}}/>
+                                    <IconButton
+                                        sx={{ color: red[500] }}
+                                        aria-label="add to favorites"
+                                        onClick={() => {
                                             //     // setClicked(true);
                                             //     // if (!temp.includes(el.images.fixed_height.url))
                                             //     //   temp.push(el.images.fixed_height.url);
@@ -61,23 +78,29 @@ export const Displaygif = ({ data, setData, liked, setLiked }) => {
                                             //     //   localStorage.setItem(index, obj);
                                             //     // });
                                             //     // console.log(localStorage);
-                                                // if (liked?.includes(el.id)) {
-                                                //     setLiked(liked => liked.filter((id) => id != el.id));
-                                                //     //setLiked(liked.filter((item) => (item = !el.id)));
-                                                // } else {
-                                                //     if (liked) {
-                                                //         setLiked([...liked, el.id]);
-                                                //     }
-                                                // }
-                                                // saveArray();
-                                            // }}
-                                        >
-                                            {/* {liked?.includes(el.id) ? (
-                                                <FavoriteIcon />
-                                            ) : ( */}
-                                                <FavoriteBorderOutlinedIcon />
-                                            {/* )} */}
-                                        </IconButton>
+                                            if (liked?.includes(el.id)) {
+                                                setLiked(liked => liked.filter((id) => id != el.id));
+                                                console.log(setLiked);
+                                                //setLiked(liked.filter((item) => (item = !el.id)));
+                                            } else {
+                                                if (liked) {
+                                                    setLiked([...liked, el.id]);
+                                                    console.log("if");
+                                                }
+                                                else {
+                                                    setLiked([el.id]);
+                                                    console.log("else");
+                                                }
+
+                                            }
+                                        }}
+                                    >
+                                        {liked?.includes(el.id) ? (
+                                            <FavoriteIcon />
+                                        ) : (
+                                            <FavoriteBorderOutlinedIcon />
+                                        )}
+                                    </IconButton>
                                     // )
                                 }
                                 title={
@@ -89,14 +112,14 @@ export const Displaygif = ({ data, setData, liked, setLiked }) => {
                                     //         style={{ marginBottom: 6 }}
                                     //     />
                                     // ) : (
-                                        el.username
+                                    el.username
                                     // )
                                 }
                                 subheader={
                                     // loading ? (
                                     //     <Skeleton animation="wave" height={10} width="40%" />
                                     // ) : (
-                                        el.import_datetime
+                                    el.import_datetime
                                     // )
                                 }
                             />
@@ -107,12 +130,12 @@ export const Displaygif = ({ data, setData, liked, setLiked }) => {
                                     variant="rectangular"
                                 />
                             ) : ( */}
-                                <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={el.images.fixed_height.url}
-                                    alt={el.title}
-                                />
+                            <CardMedia
+                                component="img"
+                                height="194"
+                                image={el.images.fixed_height.url}
+                                alt={el.title}
+                            />
                             {/* )} */}
 
                             <CardContent>
@@ -123,9 +146,9 @@ export const Displaygif = ({ data, setData, liked, setLiked }) => {
                                         style={{ marginBottom: 6 }}
                                     />
                                 ) : ( */}
-                                    <Typography variant="body2" color="text.secondary">
-                                        {el.title}
-                                    </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {el.title}
+                                </Typography>
                                 {/* )} */}
                             </CardContent>
                         </Card>

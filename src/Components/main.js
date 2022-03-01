@@ -8,6 +8,19 @@ const Main = () => {
     const [text, setText] = useState("");
     const [data, setData] = useState([]);
     const [liked, setLiked] = useState([]);
+    useEffect(() => {
+        const likedIds = JSON.parse(localStorage.getItem("likedArray"));
+        console.log("likedIds", likedIds);
+        setLiked(likedIds);
+
+    }, [])
+
+    useEffect(() => {
+        console.log("saveArray");
+        const list = JSON.stringify(liked);
+        return (localStorage.setItem("likedArray", list));
+
+    }, [liked])
 
     useEffect(() => {
         const url =
@@ -23,14 +36,28 @@ const Main = () => {
             } catch (error) {
                 console.log("error", error);
             }
+            // const obj = JSON.parse(asyncLocalStorage.getItem("likedArray"));
+            // setLiked(obj);
+            // console.log("getitem", obj);
+
+            // console.log(typeof obj);
         };
-        const fetchLiked = () => {
-            setLiked(localStorage.getItem("likedArray"));
-        };
+        // const fetchLiked = () => {
+        //     const obj = JSON.parse(localStorage.getItem("likedArray"));
+        //     console.log("getitem", obj);
+        //     console.log(typeof obj);
+        // };
 
         fetchData();
-        fetchLiked();
-}, []);
+        // fetchLiked();
+    }, []);
+
+    // const asyncLocalStorage = {
+    //     getItem: async function (key) {
+    //         await null;
+    //         return localStorage.getItem(key);
+    //     }
+    // };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -45,12 +72,11 @@ const Main = () => {
             setData([]);
             setData((data) => [...data, ...results?.data?.data]);
             setText("");
-            console.log(text);
+
         } catch (error) {
             console.log("error", error);
         }
     };
-    console.log(data);
     return <>
         <Searchgif text={text} setText={setText} data={data} setData={data} onClick={handleSubmit} />
         <Displaygif data={data} setData={setData} liked={liked} setLiked={setLiked} />
