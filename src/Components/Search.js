@@ -17,11 +17,23 @@ import Typography from "@mui/material/Typography";
 import { red, grey } from "@mui/material/colors";
 import Skeleton from "@mui/material/Skeleton";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+// import { useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
 
 export const Searchgif = ({ text, setText, data, setData, onClick }) => {
+    
+    const history = useHistory();
+
     const handleSearchChange = (event) => {
         setText(event.target.value);
     };
+    function handleClickLike() {
+        history.push("/liked");
+    }
+    function handleClickFilter() {
+        history.push("/filtered");
+    }
+
     return (
         <Grid container sx={{ bgcolor: "#000" }}>
             <Grid container sx={{ marginTop: "1%" }}>
@@ -71,7 +83,7 @@ export const Searchgif = ({ text, setText, data, setData, onClick }) => {
                         <IconButton
                             sx={{ color: red[500] }}
                             aria-label="search"
-                        // onClick={handleSubmit}
+                            onClick={handleClickLike}
                         >
                             <FavoriteIcon />
                         </IconButton>
@@ -80,7 +92,7 @@ export const Searchgif = ({ text, setText, data, setData, onClick }) => {
                         <IconButton
                             sx={{ color: "#fff" }}
                             aria-label="search"
-                        // onClick={handleSubmit}
+                         onClick={handleClickFilter}
                         >
                             <FilterAltIcon />
                         </IconButton>
