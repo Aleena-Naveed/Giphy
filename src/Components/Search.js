@@ -1,34 +1,29 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
-import fetch from "cross-fetch";
-import axios from "axios";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
 import { red, grey } from "@mui/material/colors";
-import Skeleton from "@mui/material/Skeleton";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-// import { useHistory } from "react-router-dom";
-import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+// { text, setText, data, setData, liked, setLiked, onClick }
+export const Searchgif = ({ text, setText, data, setData, liked, setLiked, onClick }) => {
 
-export const Searchgif = ({ text, setText, data, setData, onClick }) => {
-    
     const history = useHistory();
 
     const handleSearchChange = (event) => {
         setText(event.target.value);
     };
+
     function handleClickLike() {
-        history.push("/liked");
+        history.push({
+            pathname: '/liked',
+            state: {
+                liked: liked,
+                data: data,
+            }
+        });
     }
     function handleClickFilter() {
         history.push("/filtered");
@@ -92,7 +87,7 @@ export const Searchgif = ({ text, setText, data, setData, onClick }) => {
                         <IconButton
                             sx={{ color: "#fff" }}
                             aria-label="search"
-                         onClick={handleClickFilter}
+                            onClick={handleClickFilter}
                         >
                             <FilterAltIcon />
                         </IconButton>

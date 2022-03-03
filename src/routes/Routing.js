@@ -4,13 +4,16 @@ import { Likedgifs } from '../Components/likedGifs';
 import { Filtergifs } from '../Components/filteredGifs';
 import Main from '../Components/main';
 
-import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
+
+
 
 export default function Routes() {
     const history = useHistory();
+
     return (
         <Router history={history}>
-            <switch>
+            <Switch>
                 <Route exact path="/">
                     <Main />
                 </Route>
@@ -21,7 +24,7 @@ export default function Routes() {
                 <Route path="/filtered">
                     <Filtergifs />
                 </Route>
-            </switch>
+            </Switch>
         </Router>
-)
+    )
 }

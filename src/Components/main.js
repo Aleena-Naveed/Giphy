@@ -8,15 +8,14 @@ const Main = () => {
     const [text, setText] = useState("");
     const [data, setData] = useState([]);
     const [liked, setLiked] = useState([]);
+
     useEffect(() => {
         const likedIds = JSON.parse(localStorage.getItem("likedArray"));
-        console.log("likedIds", likedIds);
         setLiked(likedIds);
 
     }, [])
 
     useEffect(() => {
-        console.log("saveArray");
         const list = JSON.stringify(liked);
         return (localStorage.setItem("likedArray", list));
 
@@ -30,34 +29,14 @@ const Main = () => {
             try {
                 const response = await fetch(url);
                 const json = await response.json();
-                // console.log("json",json);
                 console.log("json.data.data)", json.data);
                 setData((data) => [...data, ...json?.data])
             } catch (error) {
                 console.log("error", error);
             }
-            // const obj = JSON.parse(asyncLocalStorage.getItem("likedArray"));
-            // setLiked(obj);
-            // console.log("getitem", obj);
-
-            // console.log(typeof obj);
         };
-        // const fetchLiked = () => {
-        //     const obj = JSON.parse(localStorage.getItem("likedArray"));
-        //     console.log("getitem", obj);
-        //     console.log(typeof obj);
-        // };
-
         fetchData();
-        // fetchLiked();
     }, []);
-
-    // const asyncLocalStorage = {
-    //     getItem: async function (key) {
-    //         await null;
-    //         return localStorage.getItem(key);
-    //     }
-    // };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -77,8 +56,9 @@ const Main = () => {
             console.log("error", error);
         }
     };
+
     return <>
-        <Searchgif text={text} setText={setText} data={data} setData={data} onClick={handleSubmit} />
+        <Searchgif text={text} setText={setText} data={data} setData={data} liked={liked} setLiked={setLiked} onClick={handleSubmit} />
         <Displaygif data={data} setData={setData} liked={liked} setLiked={setLiked} />
     </>
 

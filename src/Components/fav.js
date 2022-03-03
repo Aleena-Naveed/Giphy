@@ -44,3 +44,10 @@ const TGiff = () => {
 
 
 export default TGiff;
+<div>
+    {Array.map((a) =>
+        List.map((b) =>
+            <p>{(a == b) ? (a) : null}</p>
+        )
+    )}
+</div>

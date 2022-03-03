@@ -1,5 +1,3 @@
-// import logo from './logo.svg';
-// import Main from './Components/main'
 import Routes from './routes/Routing';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -10,7 +8,6 @@ const theme = createTheme({
     },
     text: {
       primary: '#000',
-      // secondary: '#fff',
     },
     divider: '#fff',
   },
