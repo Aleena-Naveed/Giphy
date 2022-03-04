@@ -3,23 +3,24 @@ import { Searchgif } from './Search'
 import { Displaygif } from './Displaygif'
 import fetch from "cross-fetch";
 import axios from "axios";
-
+import React, { useContext } from "react";
+import { Gifs } from '../store/store';
 const Main = () => {
-    const [text, setText] = useState("");
-    const [data, setData] = useState([]);
-    const [liked, setLiked] = useState([]);
+    const { text, setText, data, setData, liked, setLiked } = useContext(Gifs);
+    console.log("data Gifs", data);
+    console.log("liked Gifs", liked);
 
-    useEffect(() => {
-        const likedIds = JSON.parse(localStorage.getItem("likedArray"));
-        setLiked(likedIds);
+    // useEffect(() => {
+    //     const likedIds = JSON.parse(localStorage.getItem("likedArray"));
+    //     setLiked(likedIds);
 
-    }, [])
+    // }, [])
 
-    useEffect(() => {
-        const list = JSON.stringify(liked);
-        return (localStorage.setItem("likedArray", list));
+    // useEffect(() => {
+    //     const list = JSON.stringify(liked);
+    //     return (localStorage.setItem("likedArray", list));
 
-    }, [liked])
+    // }, [liked])
 
     useEffect(() => {
         const url =
@@ -29,8 +30,9 @@ const Main = () => {
             try {
                 const response = await fetch(url);
                 const json = await response.json();
-                console.log("json.data.data)", json.data);
+                console.log("json.data", json.data);
                 setData((data) => [...data, ...json?.data])
+                console.log("data", data);
             } catch (error) {
                 console.log("error", error);
             }
@@ -58,8 +60,9 @@ const Main = () => {
     };
 
     return <>
-        <Searchgif text={text} setText={setText} data={data} setData={data} liked={liked} setLiked={setLiked} onClick={handleSubmit} />
-        <Displaygif data={data} setData={setData} liked={liked} setLiked={setLiked} />
+        <Searchgif onClick={handleSubmit}  />
+        <Displaygif />
+
     </>
 
 }

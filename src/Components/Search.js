@@ -7,9 +7,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { red, grey } from "@mui/material/colors";
 import { useHistory } from "react-router-dom";
+import { Gifs } from '../store/store';
+import { useContext } from "react";
 // { text, setText, data, setData, liked, setLiked, onClick }
-export const Searchgif = ({ text, setText, data, setData, liked, setLiked, onClick }) => {
+export const Searchgif = ({ onClick }) => {
 
+    const { text, setText } = useContext(Gifs);
     const history = useHistory();
 
     const handleSearchChange = (event) => {
@@ -17,13 +20,14 @@ export const Searchgif = ({ text, setText, data, setData, liked, setLiked, onCli
     };
 
     function handleClickLike() {
-        history.push({
-            pathname: '/liked',
-            state: {
-                liked: liked,
-                data: data,
-            }
-        });
+        history.push("/liked");
+        // history.push({
+        //     pathname: '/liked',
+        //     state: {
+        //         fav: liked,
+        //         allgifs: data,
+        //     }
+        // });
     }
     function handleClickFilter() {
         history.push("/filtered");

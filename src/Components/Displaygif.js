@@ -10,9 +10,11 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { red, grey } from "@mui/material/colors";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { Gifs } from '../store/store';
+import { useContext } from "react";
 
-export const Displaygif = ({ data, setData, liked, setLiked }) => {
-
+export const Displaygif = () => {
+    const { text, setText, data, setData, liked, setLiked } = useContext(Gifs);
     return (
         <Grid container sx={{ bgcolor: "#000" }}>
             <Grid
@@ -42,7 +44,7 @@ export const Displaygif = ({ data, setData, liked, setLiked }) => {
                                             } else {
                                                 if (liked) {
                                                     setLiked([...liked, el.id]);
-                                                    console.log("if");
+                                                    console.log("display liked", liked);
                                                 }
                                                 else {
                                                     setLiked([el.id]);
