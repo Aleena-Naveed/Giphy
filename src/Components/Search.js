@@ -9,11 +9,21 @@ import { red, grey } from "@mui/material/colors";
 import { useHistory } from "react-router-dom";
 import { Gifs } from '../store/store';
 import { useContext } from "react";
-// { text, setText, data, setData, liked, setLiked, onClick }
-export const Searchgif = ({ onClick }) => {
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
-    const { text, setText } = useContext(Gifs);
+export const Searchgif = ({ onClick }) => {
+    const { text, setText, data, setData, liked, setLiked, toggle, setToggle, value, setValue } = useContext(Gifs);
     const history = useHistory();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const handleSearchChange = (event) => {
         setText(event.target.value);
@@ -21,18 +31,21 @@ export const Searchgif = ({ onClick }) => {
 
     function handleClickLike() {
         history.push("/liked");
-        // history.push({
-        //     pathname: '/liked',
-        //     state: {
-        //         fav: liked,
-        //         allgifs: data,
-        //     }
-        // });
-    }
-    function handleClickFilter() {
-        history.push("/filtered");
     }
 
+
+    const handleChangeA = (event) => {
+        setAnchorEl(null);
+        setValue("A");
+        console.log("value", value);
+        setToggle(true);
+    };
+    const handleChangeD = (event) => {
+        setAnchorEl(null);
+        setValue("D");
+        console.log("value", value);
+        setToggle(true);
+    };
     return (
         <Grid container sx={{ bgcolor: "#000" }}>
             <Grid container sx={{ marginTop: "1%" }}>
@@ -87,14 +100,39 @@ export const Searchgif = ({ onClick }) => {
                             <FavoriteIcon />
                         </IconButton>
                     </Grid>
-                    <Grid item>
+                    <Grid item direction="row">
                         <IconButton
                             sx={{ color: "#fff" }}
-                            aria-label="search"
-                            onClick={handleClickFilter}
+                            aria-label="more"
+                            id="long-button"
+                            aria-controls={open ? 'long-menu' : undefined}
+                            aria-expanded={open ? 'true' : undefined}
+                            aria-haspopup="true"
+                            onClick={handleClick}
                         >
                             <FilterAltIcon />
                         </IconButton>
+                        <Menu
+                            id="long-menu"
+                            MenuListProps={{
+                                'aria-labelledby': 'long-button',
+                            }}
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            PaperProps={{
+                                style: {
+                                    width: '20ch',
+                                },
+                            }}
+                        >
+                            <MenuItem onClick={handleChangeA}>
+                                Ascending
+                            </MenuItem>
+                            <MenuItem onClick={handleChangeD}>
+                                Descending
+                            </MenuItem>
+                        </Menu>
                     </Grid>
                 </Grid>
             </Grid>

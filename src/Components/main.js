@@ -6,9 +6,9 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { Gifs } from '../store/store';
 const Main = () => {
-    const { text, setText, data, setData, liked, setLiked } = useContext(Gifs);
-    console.log("data Gifs", data);
-    console.log("liked Gifs", liked);
+    const { text, setText, data, setData, liked, setLiked, toggle, setToggle } = useContext(Gifs);
+    
+    
 
     // useEffect(() => {
     //     const likedIds = JSON.parse(localStorage.getItem("likedArray"));
@@ -32,13 +32,14 @@ const Main = () => {
                 const json = await response.json();
                 console.log("json.data", json.data);
                 setData((data) => [...data, ...json?.data])
-                console.log("data", data);
             } catch (error) {
                 console.log("error", error);
             }
         };
         fetchData();
-    }, []);
+    }, [setToggle]);
+
+    
 
     const handleSubmit = async (event) => {
         event.preventDefault();

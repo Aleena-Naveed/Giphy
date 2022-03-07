@@ -8,8 +8,9 @@ export const AppProvider = ({ children }) => {
     const [text, setText] = useState("");
     const [data, setData] = useState([]);
     const [liked, setLiked] = useState([]);
+    const [toggle, setToggle] = useState(false);
+    const [value, setValue] = React.useState("");
 
-    const location = useLocation();
 
     useEffect(() => {
         const likedIds = JSON.parse(localStorage.getItem("likedArray"));
@@ -31,7 +32,11 @@ export const AppProvider = ({ children }) => {
                 data,
                 setData,
                 liked,
-                setLiked
+                setLiked,
+                toggle, 
+                setToggle,
+                value,
+                setValue
             }}>
             {children}
         </Gifs.Provider>

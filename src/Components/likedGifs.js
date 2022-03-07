@@ -15,12 +15,14 @@ import { height } from "@mui/system";
 import { Gifs } from '../store/store';
 import React, { useContext } from "react";
 import axios from "axios";
-
+import { useHistory } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export const Likedgifs = () => {
     const { data, setData, liked, setLiked } = useContext(Gifs);
     console.log("liked", liked);
     const [favGifs, setFavGifs] = useState([]);
+    const history = useHistory();
 
     useEffect(() => {
         const fetchFavGifs = async () => {
@@ -70,7 +72,19 @@ export const Likedgifs = () => {
 
     return (
         <Grid container sx={{ bgcolor: "#000" }}>
-
+            <Grid container sx={{ marginTop: "1%" }}>
+                <Grid item xs={2}>
+                    <IconButton
+                        fontSize="large"
+                        sx={{ color: "#fff" }}
+                        aria-label="search"
+                        onClick={() => history.goBack()}
+                    >
+                        <ArrowBackIcon />
+                    </IconButton>
+                    {/* <button onClick={() => history.goBack()}>Back</button> */}
+                </Grid>
+            </Grid>
             <Grid
                 container
                 sx={{ marginTop: "2%" }}
