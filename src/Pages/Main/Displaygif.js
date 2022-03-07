@@ -8,24 +8,35 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { red, grey } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { Gifs } from '../store/store';
+import { HomeGifs } from '../../ContextStores/MainStore';
+import { LikedGifs } from '../../ContextStores/LikeStore';
 import { useContext } from "react";
+import InfoIcon from '@mui/icons-material/Info';
+import CardActions from '@material-ui/core/CardActions';
 
 
 export const Displaygif = () => {
-    const { text, setText, data, setData, liked, setLiked, toggle, setToggle, value, setValue } = useContext(Gifs);
-    
+    const { text, setText, data, setData, toggle, setToggle, value, setValue } = useContext(HomeGifs);
+    const { liked, setLiked } = useContext(LikedGifs);
 
+    const handleClick = () => {
+        console.log("Hello")
+    }
     return (
-        <Grid>
+        <Grid >
             {
                 (!toggle) ? (
-                    <Grid container sx={{ bgcolor: "#000" }} >
+                    <Grid container sx={{
+                        bgcolor: "#000"
+                    }}  >
                         <Grid
                             container
-                            sx={{ marginTop: "2%" }}
+                            sx={{
+                                marginTop: "2%",
+                                minHeight: '100vh',
+                            }}
                             direction="row"
                             justifyContent="space-evenly"
                             alignItems="center"
@@ -33,7 +44,7 @@ export const Displaygif = () => {
                             {data.map((el) => (
 
                                 <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id}>
-                                    <Card sx={{ maxWidth: 345 }}>
+                                    <Card sx={{ maxWidth: 320, minWidth: 320, maxHeight: 340, minHeight: 340 }}>
                                         <CardHeader
                                             avatar={
                                                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -80,8 +91,9 @@ export const Displaygif = () => {
                                             height="194"
                                             image={el.images.fixed_height.url}
                                             alt={el.title}
+                                            onClick={handleClick}
                                         />
-
+                                        
                                         <CardContent>
                                             <Typography variant="body2" color="text.secondary">
                                                 {el.title}
@@ -90,7 +102,6 @@ export const Displaygif = () => {
                                     </Card>
                                 </Grid>
                             ))}
-                            ;
                         </Grid>
                     </Grid >
                 ) : (
@@ -245,7 +256,7 @@ export const Displaygif = () => {
                         )
                 )
             }
-        </Grid>
+        </Grid >
     );
 }
 

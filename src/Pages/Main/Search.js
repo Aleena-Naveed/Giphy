@@ -5,18 +5,19 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import { red, grey } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
 import { useHistory } from "react-router-dom";
-import { Gifs } from '../store/store';
+import { HomeGifs } from '../../ContextStores/MainStore';
 import { useContext } from "react";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 export const Searchgif = ({ onClick }) => {
-    const { text, setText, data, setData, liked, setLiked, toggle, setToggle, value, setValue } = useContext(Gifs);
+    const { text, setText, data, setData, toggle, setToggle, value, setValue } = useContext(HomeGifs);
     const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -40,12 +41,14 @@ export const Searchgif = ({ onClick }) => {
         console.log("value", value);
         setToggle(true);
     };
+
     const handleChangeD = (event) => {
         setAnchorEl(null);
         setValue("D");
         console.log("value", value);
         setToggle(true);
     };
+
     return (
         <Grid container sx={{ bgcolor: "#000" }}>
             <Grid container sx={{ marginTop: "1%" }}>

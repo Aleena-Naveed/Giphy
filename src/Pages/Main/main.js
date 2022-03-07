@@ -4,23 +4,12 @@ import { Displaygif } from './Displaygif'
 import fetch from "cross-fetch";
 import axios from "axios";
 import React, { useContext } from "react";
-import { Gifs } from '../store/store';
+import { HomeGifs } from '../../ContextStores/MainStore';
+
+
 const Main = () => {
-    const { text, setText, data, setData, liked, setLiked, toggle, setToggle } = useContext(Gifs);
-    
-    
+    const { text, setText, data, setData, toggle, setToggle } = useContext(HomeGifs);
 
-    // useEffect(() => {
-    //     const likedIds = JSON.parse(localStorage.getItem("likedArray"));
-    //     setLiked(likedIds);
-
-    // }, [])
-
-    // useEffect(() => {
-    //     const list = JSON.stringify(liked);
-    //     return (localStorage.setItem("likedArray", list));
-
-    // }, [liked])
 
     useEffect(() => {
         const url =
@@ -39,7 +28,7 @@ const Main = () => {
         fetchData();
     }, [setToggle]);
 
-    
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -61,7 +50,7 @@ const Main = () => {
     };
 
     return <>
-        <Searchgif onClick={handleSubmit}  />
+        <Searchgif onClick={handleSubmit} />
         <Displaygif />
 
     </>

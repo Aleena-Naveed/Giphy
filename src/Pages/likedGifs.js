@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -9,17 +8,16 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { red, grey } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { height } from "@mui/system";
-import { Gifs } from '../store/store';
+import { LikedGifs } from '../ContextStores/LikeStore';
 import React, { useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export const Likedgifs = () => {
-    const { data, setData, liked, setLiked } = useContext(Gifs);
+    const { liked, setLiked } = useContext(LikedGifs);
     console.log("liked", liked);
     const [favGifs, setFavGifs] = useState([]);
     const history = useHistory();
@@ -34,10 +32,8 @@ export const Likedgifs = () => {
                     },
                 });
                 console.log("results.data.data", results.data.data);
-                // setFavGifs([]);
                 setFavGifs(results?.data?.data);
                 console.log("favGifs", favGifs);
-                // setText("");
 
             } catch (error) {
                 console.log("error", error);
@@ -46,55 +42,35 @@ export const Likedgifs = () => {
         if (liked.length) { fetchFavGifs(); }
     }, [liked]);
 
-    // useEffect(() => {
-    //     const likedIds = JSON.parse(localStorage.getItem("likedArray"));
-    //     setLiked(likedIds);
-
-    // }, [])
-
-    // useEffect(() => {
-    //     const list = JSON.stringify(liked);
-    //     return (localStorage.setItem("likedArray", list));
-
-    // }, [liked])
-
-
-    // const location = useLocation();
-
-    // useEffect(() => {
-    //     if ("location.state", location.state) {
-    //         setLiked(location.state.fav)
-    //         console.log("location.state", liked)
-    //         setData(location.state.allgifs)
-    //     }
-    // }, [location, liked]);
-
-
     return (
-        <Grid container sx={{ bgcolor: "#000" }}>
-            <Grid container sx={{ marginTop: "1%" }}>
+        <Grid container sx={{
+            bgcolor: "#000"
+        }}>
+            < Grid container sx={{
+                marginTop: "1%"
+            }}>
                 <Grid item xs={2}>
                     <IconButton
-                        fontSize="large"
-                        sx={{ color: "#fff" }}
+                        // 
+                        
+                        sx={{ color: "#fff", fontSize: "24%", fontFamily: 'Material Icon', fontWeight: '400', marginLeft: "8%" }}
                         aria-label="search"
                         onClick={() => history.goBack()}
                     >
-                        <ArrowBackIcon />
+                        <ArrowBackIcon color="primary" sx={{ color: "#fff" }} fontSize="medium" fontWeight='50%' />
                     </IconButton>
-                    {/* <button onClick={() => history.goBack()}>Back</button> */}
                 </Grid>
-            </Grid>
+            </Grid >
             <Grid
                 container
-                sx={{ marginTop: "2%" }}
+                sx={{ marginTop: "2px", marginLeft: "1%", bgcolor: "#000", minHeight: '100vh' }}
                 direction="row"
                 justifyContent="center"
-                alignItems="center"
+            // /alignItems="center"
             >
                 {favGifs.map((el) => (
                     <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id}>
-                        <Card sx={{ maxWidth: 345 }}>
+                        <Card sx={{ maxWidth: 320, minWidth: 320, maxHeight: 330, minHeight: 330}}>
                             <CardHeader
                                 avatar={
                                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -103,6 +79,7 @@ export const Likedgifs = () => {
                                 }
                                 action={
                                     <IconButton
+                                        
                                         sx={{ color: red[500] }}
                                         aria-label="add to favorites"
                                         onClick={() => {
@@ -155,6 +132,8 @@ export const Likedgifs = () => {
                 ))}
                 ;
             </Grid>
-        </Grid>
+        </Grid >
     );
 }
+// spacing = { 2}
+// sx = {{ margin: "3px" }}
