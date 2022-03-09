@@ -1,12 +1,10 @@
-// import React, { createContext } from "react";
-// import { useState, useEffect } from 'react';
+
 import { Likedgifs } from '../Pages/likedGifs';
 import Home from '../Pages/Home';
 import { LikeProvider } from '../ContextStores/LikeStore';
-import DetailGif  from '../Pages/GifDetails';
+import DetailGif from '../Pages/GifDetails';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 
-// const Gifs = createContext();
 
 export default function Routes() {
     const history = useHistory();
@@ -24,7 +22,7 @@ export default function Routes() {
                     </Route>
 
                     <Route path="/details">
-                        <DetailGif />
+                            <DetailGif />
                     </Route>
 
                 </Switch>

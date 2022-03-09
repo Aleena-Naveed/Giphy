@@ -19,7 +19,7 @@ const Main = () => {
             try {
                 const response = await fetch(url);
                 const json = await response.json();
-                console.log("json.data", json.data);
+                console.log('json.data', json?.data)
                 setData((data) => [...data, ...json?.data])
             } catch (error) {
                 console.log("error", error);

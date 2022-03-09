@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import IconButton from "@mui/material/IconButton";
+import Image from "../Components/imgComp";
 
 const DetailGif = () => {
 
@@ -12,8 +13,6 @@ const DetailGif = () => {
     const [detail, setDetail] = useState(null);
     const location = useLocation();
     const history = useHistory();
-    console.log(location);
-    console.log(location.state);
 
     useEffect(() => {
         const fetchGifDetail = async () => {
@@ -23,7 +22,6 @@ const DetailGif = () => {
                         api_key: "ynEBIL0IuyPRz5Sgfoh8VyId08vBK8eg",
                     },
                 });
-                console.log("results.data.data", results.data.data);
                 setDetail(results?.data?.data);
 
             } catch (error) {
@@ -34,11 +32,8 @@ const DetailGif = () => {
     }, [id]);
 
     useEffect(() => {
-        console.log("hello", location);
         if (location.state) {
-            console.log(location.state)
             setId(location.state.gifid)
-            console.log("detailspageid", id)
         }
     }, [location]);
 
@@ -51,7 +46,7 @@ const DetailGif = () => {
             }}>
                 <Grid item xs={2}>
                     <IconButton
-                        sx={{ color: "#000", fontSize: "24%", fontFamily: 'Material Icon', fontWeight: '400', marginLeft: "8%" }}
+                        sx={{ color: "#fff", fontSize: "24%", fontFamily: 'Material Icon', fontWeight: '400', marginLeft: "8%" }}
                         aria-label="search"
                         onClick={() => history.goBack()}
                     >
@@ -69,12 +64,10 @@ const DetailGif = () => {
                 <Grid item sx={{ margin: "3px" }}>
 
                     <div>
-                        <img src={detail?.images?.fixed_height?.url || ""}></img>
-                        <br></br>
-                        <div>
-                            <p >Title:{detail?.title || ""}</p>
-                            <p >Username:{detail?.username || ""}</p>
-                        </div>
+                        <div position="absolute"><Image src={detail?.images?.fixed_height?.url || ""} alt="loading..." style={{ height: 600, width: 800 }} /></div>
+                        <div><p >Title:&nbsp;&nbsp;{detail?.title || ""}</p>
+                            <p >Username:&nbsp;&nbsp;{detail?.username || ""}</p></div>
+
                     </div>
                 </Grid>
             </Grid>
