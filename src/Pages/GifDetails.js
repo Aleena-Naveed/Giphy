@@ -64,10 +64,9 @@ const DetailGif = () => {
                 <Grid item sx={{ margin: "3px" }}>
 
                     <div>
-                        <div position="absolute"><Image src={detail?.images?.fixed_height?.url || ""} alt="loading..." style={{ height: 600, width: 800 }} /></div>
-                        <div><p >Title:&nbsp;&nbsp;{detail?.title || ""}</p>
-                            <p >Username:&nbsp;&nbsp;{detail?.username || ""}</p></div>
-
+                        <Image src={detail?.images?.fixed_height?.url || ""} alt="loading..." style={{ height: 600, width: 800 }} />
+                        <p >Title:&nbsp;&nbsp;{detail?.title || ""}</p>
+                        <p >Username:&nbsp;&nbsp;{detail?.username || ""}</p>
                     </div>
                 </Grid>
             </Grid>

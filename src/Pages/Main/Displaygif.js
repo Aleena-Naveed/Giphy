@@ -14,6 +14,7 @@ import { HomeGifs } from '../../ContextStores/MainStore';
 import { LikedGifs } from '../../ContextStores/LikeStore';
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
+import Image from "../../Components/imgComp";
 
 
 export const Displaygif = () => {
@@ -93,12 +94,14 @@ export const Displaygif = () => {
                                             }
                                         />
                                         <CardMedia
-                                            component="img"
-                                            height="194"
-                                            image={el.images.fixed_height.url}
-                                            alt={el.title}
+                                            // component="img"
+                                            // height="200"
+                                            // width = "194"
+                                            // alt={el.title}
                                             onClick={() => handleClickDetail(el.id)}
-                                        />
+                                        >
+                                            {<Image src={el?.images?.fixed_height?.url || ""} alt="loading..." style={{ height: 200, width: 324 }} />}
+                                        </CardMedia>
                                         <CardContent>
                                             <Typography variant="body2" color="text.secondary">
                                                 {el.title}
