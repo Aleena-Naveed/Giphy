@@ -3,6 +3,7 @@
 import { Likedgifs } from '../Pages/likedGifs';
 import Home from '../Pages/Home';
 import { LikeProvider } from '../ContextStores/LikeStore';
+import DetailGif  from '../Pages/GifDetails';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 
 // const Gifs = createContext();
@@ -20,6 +21,10 @@ export default function Routes() {
 
                     <Route path="/liked">
                         <Likedgifs />
+                    </Route>
+
+                    <Route path="/details">
+                        <DetailGif />
                     </Route>
 
                 </Switch>

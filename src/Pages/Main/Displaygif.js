@@ -13,17 +13,23 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import { HomeGifs } from '../../ContextStores/MainStore';
 import { LikedGifs } from '../../ContextStores/LikeStore';
 import { useContext } from "react";
-import InfoIcon from '@mui/icons-material/Info';
-import CardActions from '@material-ui/core/CardActions';
+import { useHistory } from "react-router-dom";
 
 
 export const Displaygif = () => {
     const { text, setText, data, setData, toggle, setToggle, value, setValue } = useContext(HomeGifs);
     const { liked, setLiked } = useContext(LikedGifs);
+    const history = useHistory();
 
-    const handleClick = () => {
-        console.log("Hello")
+    function handleClickDetail(id) {
+        history.push({
+            pathname: "/details",
+            state: {
+                gifid: id
+            }
+        })
     }
+
     return (
         <Grid >
             {
@@ -91,9 +97,8 @@ export const Displaygif = () => {
                                             height="194"
                                             image={el.images.fixed_height.url}
                                             alt={el.title}
-                                            onClick={handleClick}
+                                            onClick={() => handleClickDetail(el.id)}
                                         />
-                                        
                                         <CardContent>
                                             <Typography variant="body2" color="text.secondary">
                                                 {el.title}

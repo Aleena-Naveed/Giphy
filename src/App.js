@@ -16,6 +16,11 @@ const theme = createTheme({
       backgroundColor: '#fff',
       color: '#fff',
     }
+  },
+  typography: {
+    body1: {
+      color: '#fff'
+    }
   }
 });
 

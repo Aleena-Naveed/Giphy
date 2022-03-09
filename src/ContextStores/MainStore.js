@@ -9,7 +9,7 @@ const MainProvider = ({ children }) => {
     const [text, setText] = useState("");
     const [toggle, setToggle] = useState(false);
     const [value, setValue] = React.useState("");
-
+    
     return (
         <HomeGifs.Provider
             value={{
@@ -20,7 +20,7 @@ const MainProvider = ({ children }) => {
                 toggle,
                 setToggle,
                 value,
-                setValue
+                setValue,
             }}>
             {children}
         </HomeGifs.Provider>
