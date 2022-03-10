@@ -9,6 +9,8 @@ const MainProvider = ({ children }) => {
     const [text, setText] = useState("");
     const [toggle, setToggle] = useState(false);
     const [value, setValue] = React.useState("");
+    const [loading, setLoading] = useState(false);
+    const [offset, setOffset] = useState(0);
     
     return (
         <HomeGifs.Provider
@@ -21,6 +23,10 @@ const MainProvider = ({ children }) => {
                 setToggle,
                 value,
                 setValue,
+                loading,
+                setLoading,
+                offset,
+                setOffset
             }}>
             {children}
         </HomeGifs.Provider>

@@ -9,11 +9,8 @@ const Image = ({ src, alt, style }) => {
     const [loading, setLoading] = useState(false);
 
     const imageStyle = !loading ? { display: "none" } : {};
-    console.log('src', src);
-
-
+    
     const onLoad = () => {
-        console.log('loaded');
         setLoading(true);
     }
 
@@ -30,7 +27,7 @@ const Image = ({ src, alt, style }) => {
             <div >
                 {loading ?
                     (
-                        <img src={src} alt={alt} style={Object.assign(imageStyle,style)} onLoad={onLoad} />
+                        <img src={src} alt={alt} style={Object.assign(imageStyle, style)} onLoad={onLoad} />
                     )
                     :
                     (
@@ -51,11 +48,11 @@ const Image = ({ src, alt, style }) => {
                             />
                             <div style={{
                                 position: "absolute",
-                                top: "45%",
-                                left: "45%",
+                                top: "50%",
+                                left: "50%",
                                 width: "200px",
                                 height: "100px",
-                                // border: "3px solid #73AD21"
+                                transform: "translate('-50%','-50%')"
                             }}>
                                 <CircularProgress color="warning" />
                             </div>

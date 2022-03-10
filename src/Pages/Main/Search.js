@@ -129,10 +129,10 @@ export const Searchgif = ({ onClick }) => {
                                 },
                             }}
                         >
-                            <MenuItem onClick={handleChangeA}>
+                            <MenuItem sx={{ color: "#000" }} onClick={handleChangeA}>
                                 Ascending
                             </MenuItem>
-                            <MenuItem onClick={handleChangeD}>
+                            <MenuItem sx={{ color: "#000" }} onClick={handleChangeD}>
                                 Descending
                             </MenuItem>
                         </Menu>

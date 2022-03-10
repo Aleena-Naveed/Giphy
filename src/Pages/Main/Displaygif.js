@@ -15,10 +15,11 @@ import { LikedGifs } from '../../ContextStores/LikeStore';
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Image from "../../Components/imgComp";
+import { useScrollToBottom } from "../../CustomHook/useScrollToBottom"
 
 
-export const Displaygif = () => {
-    const { text, setText, data, setData, toggle, setToggle, value, setValue } = useContext(HomeGifs);
+export const Displaygif = (onScrollEnd) => {
+    const { text, setText, data, setData, toggle, setToggle, value, setValue, loading, setLoading, offset, setOffset } = useContext(HomeGifs);
     const { liked, setLiked } = useContext(LikedGifs);
     const history = useHistory();
 
@@ -30,6 +31,8 @@ export const Displaygif = () => {
             }
         })
     }
+
+    useScrollToBottom(() => !loading && onScrollEnd())
 
     return (
         <Grid >
@@ -94,10 +97,6 @@ export const Displaygif = () => {
                                             }
                                         />
                                         <CardMedia
-                                            // component="img"
-                                            // height="200"
-                                            // width = "194"
-                                            // alt={el.title}
                                             onClick={() => handleClickDetail(el.id)}
                                         >
                                             {<Image src={el?.images?.fixed_height?.url || ""} alt="loading..." style={{ height: 200, width: 324 }} />}
