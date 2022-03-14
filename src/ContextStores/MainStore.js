@@ -11,6 +11,7 @@ const MainProvider = ({ children }) => {
     const [value, setValue] = React.useState("");
     const [loading, setLoading] = useState(false);
     const [offset, setOffset] = useState(0);
+     
     
     return (
         <HomeGifs.Provider

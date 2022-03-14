@@ -13,10 +13,10 @@ const URL =
 const Main = () => {
 
     const limit = 25;
-    const { text, setText, data, setData, toggle, setToggle, loading, setLoading, offset, setOffset } = useContext(HomeGifs);
+    const { text, setText, data, setData, toggle, setToggle, value, setValue, loading, setLoading, offset, setOffset } = useContext(HomeGifs);
     const URL_ = `${URL}&limit=${limit}&offset=${offset}&rating=g`
-
-
+    const [searchMode, setSearchMode] = useState(false);
+    const URL_Search = `${URL}&q=${text}}&limit=${limit}&offset=${offset}&rating=g`
 
     const fetchGifs = useCallback(debounce(async (url) => {
         if (loading) return;
@@ -32,11 +32,34 @@ const Main = () => {
         setLoading(false)
     }, 500), [])
 
+    const handleSubmit = useCallback(debounce(async (query, offset) => {
+        setSearchMode(true);
+        try {
+            const results = await axios("https://api.giphy.com/v1/gifs/search", {
+                params: {
+                    api_key: "ynEBIL0IuyPRz5Sgfoh8VyId08vBK8eg",
+                    q: query,
+                    limit: limit,
+                    offset: offset
+                },
+            });
+            console.log("results.data.data", results.data.data);
+            
+            setData((data) => [...data, ...results?.data?.data])
+        } catch (error) {
+            console.log("error", error);
+        }
+    }, 500), []);
+
     useEffect(() => {
+        console.log("offset", offset);
         (() => {
-            fetchGifs(URL_)
+            (!searchMode) ?
+                fetchGifs(URL_)
+                :
+                handleSubmit(text, offset);              
         })()
-    }, [setToggle, offset])
+    }, [offset])
 
     const loadMore = () => {
         setOffset((offset) => (offset + limit + 1));
@@ -46,11 +69,8 @@ const Main = () => {
         setOffset(0)
     }, [setToggle])
 
-    
-
-
     return <>
-        <Searchgif />
+        <Searchgif onSubmit={handleSubmit} />
         <Displaygif onScrollEnd={loadMore} />
 
     </>

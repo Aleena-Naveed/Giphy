@@ -12,13 +12,19 @@ import { useContext } from "react";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import axios from "axios";
-import debounce from 'lodash.debounce'
+import debounce from 'lodash.debounce';
+import { useScrollToBottom } from "../../CustomHook/useScrollToBottom"
 
-export const Searchgif = () => {
-    const { text, setText, data, setData, toggle, setToggle, value, setValue } = useContext(HomeGifs);
+
+const URL =
+    "http://api.giphy.com/v1/gifs/trending?api_key=ynEBIL0IuyPRz5Sgfoh8VyId08vBK8eg";
+
+export const Searchgif = ({onSubmit}) => {
+    const { text, setText, data, setData, toggle, setToggle, value, setValue, loading, setLoading, offset, setOffset } = useContext(HomeGifs);
     const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
 
 
     const handleClick = (event) => {
@@ -33,43 +39,25 @@ export const Searchgif = () => {
         history.push("/liked");
     }
 
-
     const handleChangeA = () => {
         setAnchorEl(null);
         setValue("A");
-        console.log("value", value);
         setToggle(true);
     };
 
     const handleChangeD = () => {
         setAnchorEl(null);
         setValue("D");
-        console.log("value", value);
         setToggle(true);
     };
 
     const handleInputThrottled = (query) => {
         setText(query);
-        handleSubmit(query);
+        setValue("");
+        setToggle(false);
+        setData([]);
+        onSubmit(query, offset);
     };
-
-    const handleSubmit = useCallback(debounce(async (query) => {
-
-        console.log("query", query);
-        try {
-            const results = await axios("https://api.giphy.com/v1/gifs/search", {
-                params: {
-                    api_key: "ynEBIL0IuyPRz5Sgfoh8VyId08vBK8eg",
-                    q: query,
-                },
-            });
-            console.log("results.data.data", results.data.data);
-            setData((data) => results?.data?.data);
-            setText("");
-        } catch (error) {
-            console.log("error", error);
-        }
-    }, 500), []);
 
     return (
         <Grid container sx={{ bgcolor: "#000" }}>

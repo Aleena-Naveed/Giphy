@@ -17,6 +17,7 @@ import { useHistory } from "react-router-dom";
 import Image from "../../Components/imgComp";
 import { useScrollToBottom } from "../../CustomHook/useScrollToBottom"
 import CircularProgress from '@mui/material/CircularProgress';
+import { CropLandscapeOutlined } from "@mui/icons-material";
 
 
 
@@ -117,9 +118,10 @@ export const Displaygif = ({ onScrollEnd }) => {
                             ))}
                         </Grid>
                     </Grid >
-                    
+
                 ) : (
-                    value === "A" ?
+                        value === "A" ?
+                            // console.log("ascending display")
                         (
                             <Grid container sx={{ bgcolor: "#000" }} >
                                 <Grid
@@ -131,7 +133,7 @@ export const Displaygif = ({ onScrollEnd }) => {
                                 >
                                     {data.sort((a, b) => new Date(a.trending_datetime) - new Date(b.trending_datetime)
                                     ).map((el) => (
-                                        <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id+"1"}>
+                                        <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id + "1"}>
                                             <Card sx={{ maxWidth: 320, minWidth: 320, maxHeight: 340, minHeight: 340 }}>
                                                 <CardHeader
                                                     avatar={
@@ -204,7 +206,7 @@ export const Displaygif = ({ onScrollEnd }) => {
                                 >
                                     {data.sort((a, b) => new Date(b.trending_datetime) - new Date(a.trending_datetime)
                                     ).map((el) => (
-                                        <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id+"2"}>
+                                        <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id + "2"}>
                                             <Card sx={{ maxWidth: 320, minWidth: 320, maxHeight: 340, minHeight: 340 }}>
                                                 <CardHeader
                                                     avatar={
@@ -271,4 +273,3 @@ export const Displaygif = ({ onScrollEnd }) => {
     );
 }
 
-// new Date(a.trending_datetime) - new Date(b.trending_datetime)

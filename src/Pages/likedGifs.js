@@ -15,12 +15,23 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Image from "../Components/imgComp";
+
 
 export const Likedgifs = () => {
     const { liked, setLiked } = useContext(LikedGifs);
     console.log("liked", liked);
     const [favGifs, setFavGifs] = useState([]);
     const history = useHistory();
+
+    function handleClickDetail(id) {
+        history.push({
+            pathname: "/details",
+            state: {
+                gifid: id
+            }
+        })
+    }
 
     useEffect(() => {
         const fetchFavGifs = async () => {
@@ -116,11 +127,10 @@ export const Likedgifs = () => {
                                 }
                             />
                             <CardMedia
-                                component="img"
-                                height="194"
-                                image={el.images.fixed_height.url}
-                                alt={el.title}
-                            />
+                                onClick={() => handleClickDetail(el.id)}
+                            >
+                                {<Image src={el?.images?.fixed_height?.url || ""} alt="loading..." style={{ height: 200, width: 324 }} />}
+                            </CardMedia>
 
                             <CardContent>
                                 <Typography variant="body2" color="text.secondary">
