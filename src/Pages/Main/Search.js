@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
@@ -11,12 +11,15 @@ import { HomeGifs } from '../../ContextStores/MainStore';
 import { useContext } from "react";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import axios from "axios";
+import debounce from 'lodash.debounce'
 
-export const Searchgif = ({ onClick }) => {
+export const Searchgif = () => {
     const { text, setText, data, setData, toggle, setToggle, value, setValue } = useContext(HomeGifs);
     const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -26,28 +29,47 @@ export const Searchgif = ({ onClick }) => {
         setAnchorEl(null);
     };
 
-    const handleSearchChange = (event) => {
-        setText(event.target.value);
-    };
-
     function handleClickLike() {
         history.push("/liked");
     }
 
 
-    const handleChangeA = (event) => {
+    const handleChangeA = () => {
         setAnchorEl(null);
         setValue("A");
         console.log("value", value);
         setToggle(true);
     };
 
-    const handleChangeD = (event) => {
+    const handleChangeD = () => {
         setAnchorEl(null);
         setValue("D");
         console.log("value", value);
         setToggle(true);
     };
+
+    const handleInputThrottled = (query) => {
+        setText(query);
+        handleSubmit(query);
+    };
+
+    const handleSubmit = useCallback(debounce(async (query) => {
+
+        console.log("query", query);
+        try {
+            const results = await axios("https://api.giphy.com/v1/gifs/search", {
+                params: {
+                    api_key: "ynEBIL0IuyPRz5Sgfoh8VyId08vBK8eg",
+                    q: query,
+                },
+            });
+            console.log("results.data.data", results.data.data);
+            setData((data) => results?.data?.data);
+            setText("");
+        } catch (error) {
+            console.log("error", error);
+        }
+    }, 500), []);
 
     return (
         <Grid container sx={{ bgcolor: "#000" }}>
@@ -72,18 +94,9 @@ export const Searchgif = ({ onClick }) => {
                             id="standard-basic"
                             placeholder="Search"
                             value={text}
-                            onChange={handleSearchChange}
+                            onChange={(e) => handleInputThrottled(e.target.value)}
                             type="text"
                         />
-                    </Grid>
-                    <Grid item>
-                        <IconButton
-                            sx={{ color: "#fff" }}
-                            aria-label="search"
-                            onClick={onClick}
-                        >
-                            <SearchIcon />
-                        </IconButton>
                     </Grid>
                 </Grid>
                 <Grid

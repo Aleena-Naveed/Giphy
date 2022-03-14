@@ -10,8 +10,7 @@ export const useScrollToBottom = (onScrollEnd) => {
                 if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) {
                     return;
                 }
-                console.log("onScrollEnd is called")
-                onScrollEnd();
+                onScrollEnd()
             }
             document.addEventListener('scroll', trackScrolling);
             return () => document.removeEventListener('scroll', trackScrolling);

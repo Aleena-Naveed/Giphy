@@ -16,9 +16,11 @@ import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Image from "../../Components/imgComp";
 import { useScrollToBottom } from "../../CustomHook/useScrollToBottom"
+import CircularProgress from '@mui/material/CircularProgress';
 
 
-export const Displaygif = (onScrollEnd) => {
+
+export const Displaygif = ({ onScrollEnd }) => {
     const { text, setText, data, setData, toggle, setToggle, value, setValue, loading, setLoading, offset, setOffset } = useContext(HomeGifs);
     const { liked, setLiked } = useContext(LikedGifs);
     const history = useHistory();
@@ -32,7 +34,11 @@ export const Displaygif = (onScrollEnd) => {
         })
     }
 
-    useScrollToBottom(() => !loading && onScrollEnd())
+    useScrollToBottom(() => {
+        if (!loading) {
+            onScrollEnd()
+        }
+    })
 
     return (
         <Grid >
@@ -111,6 +117,7 @@ export const Displaygif = (onScrollEnd) => {
                             ))}
                         </Grid>
                     </Grid >
+                    
                 ) : (
                     value === "A" ?
                         (
@@ -124,8 +131,8 @@ export const Displaygif = (onScrollEnd) => {
                                 >
                                     {data.sort((a, b) => new Date(a.trending_datetime) - new Date(b.trending_datetime)
                                     ).map((el) => (
-                                        <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id}>
-                                            <Card sx={{ maxWidth: 345 }}>
+                                        <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id+"1"}>
+                                            <Card sx={{ maxWidth: 320, minWidth: 320, maxHeight: 340, minHeight: 340 }}>
                                                 <CardHeader
                                                     avatar={
                                                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -168,11 +175,10 @@ export const Displaygif = (onScrollEnd) => {
                                                     }
                                                 />
                                                 <CardMedia
-                                                    component="img"
-                                                    height="194"
-                                                    image={el.images.fixed_height.url}
-                                                    alt={el.title}
-                                                />
+                                                    onClick={() => handleClickDetail(el.id)}
+                                                >
+                                                    {<Image src={el?.images?.fixed_height?.url || ""} alt="loading..." style={{ height: 200, width: 324 }} />}
+                                                </CardMedia>
 
                                                 <CardContent>
                                                     <Typography variant="body2" color="text.secondary">
@@ -198,8 +204,8 @@ export const Displaygif = (onScrollEnd) => {
                                 >
                                     {data.sort((a, b) => new Date(b.trending_datetime) - new Date(a.trending_datetime)
                                     ).map((el) => (
-                                        <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id}>
-                                            <Card sx={{ maxWidth: 345 }}>
+                                        <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id+"2"}>
+                                            <Card sx={{ maxWidth: 320, minWidth: 320, maxHeight: 340, minHeight: 340 }}>
                                                 <CardHeader
                                                     avatar={
                                                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -242,11 +248,10 @@ export const Displaygif = (onScrollEnd) => {
                                                     }
                                                 />
                                                 <CardMedia
-                                                    component="img"
-                                                    height="194"
-                                                    image={el.images.fixed_height.url}
-                                                    alt={el.title}
-                                                />
+                                                    onClick={() => handleClickDetail(el.id)}
+                                                >
+                                                    {<Image src={el?.images?.fixed_height?.url || ""} alt="loading..." style={{ height: 200, width: 324 }} />}
+                                                </CardMedia>
 
                                                 <CardContent>
                                                     <Typography variant="body2" color="text.secondary">
@@ -257,7 +262,6 @@ export const Displaygif = (onScrollEnd) => {
                                         </Grid>
                                     )
                                     )}
-                                    <p>Hello</p>
                                 </Grid>
                             </Grid >
                         )

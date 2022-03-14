@@ -52,7 +52,7 @@ export const Likedgifs = () => {
                 <Grid item xs={2}>
                     <IconButton
                         // 
-                        
+
                         sx={{ color: "#fff", fontSize: "24%", fontFamily: 'Material Icon', fontWeight: '400', marginLeft: "8%" }}
                         aria-label="search"
                         onClick={() => history.goBack()}
@@ -69,8 +69,8 @@ export const Likedgifs = () => {
             // /alignItems="center"
             >
                 {favGifs.map((el) => (
-                    <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id}>
-                        <Card sx={{ maxWidth: 320, minWidth: 320, maxHeight: 330, minHeight: 330}}>
+                    <Grid item sx={{ margin: "3px" }} spacing={2} key={el.id + "3"}>
+                        <Card sx={{ maxWidth: 320, minWidth: 320, maxHeight: 330, minHeight: 330 }}>
                             <CardHeader
                                 avatar={
                                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -79,7 +79,7 @@ export const Likedgifs = () => {
                                 }
                                 action={
                                     <IconButton
-                                        
+
                                         sx={{ color: red[500] }}
                                         aria-label="add to favorites"
                                         onClick={() => {
